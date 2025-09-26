@@ -7,11 +7,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <style>
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    }
   body {
     font-family: Arial, sans-serif;
     background: #0b0c10;
     color: #fff;
-    overflow-x: hidden;
   }
   .navbar {
     background: #1f2833;
@@ -20,16 +23,30 @@
     color: #fff !important;
     font-weight: bolder;
   }
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .cart-table {
+    width: 100%;
+    min-width: 600px;
+    word-wrap: break-word;
+  }
   .cart-table th, .cart-table td {
     vertical-align: middle;
-    word-wrap: break-word;
   }
   .cart-summary {
     background: #1f2833;
     padding: 20px;
     border-radius: 10px;
+    width: 100%;
+    max-width: 100%;
   }
-  footer { background:#0d1b2a; color:#ddd; padding:40px 20px; }
+  footer {
+    background: #0d1b2a;
+    color: #ddd;
+    padding: 40px 20px;
+  }
   footer h5 { color:#fff; }
   footer a { color:#bbb; text-decoration:none; }
   footer a:hover { color:#fff; }
@@ -47,6 +64,7 @@
     height: auto;
     display: block;
   }
+
   /* Responsive adjustments */
   @media (max-width: 991px) {
     .cart-summary {
@@ -54,8 +72,14 @@
     }
   }
   @media (max-width: 767px) {
+    .cart-table {
+      min-width: 100%;
+    }
     .cart-table input[type=number] {
       width: 100% !important;
+    }
+    td button {
+      width: 100%;
     }
   }
 </style>
@@ -104,15 +128,15 @@
           <tbody id="cart-items">
             <tr>
               <td>
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center flex-wrap">
                   <img src="" width="60" class="me-2 rounded">
                   <span>Smart LED Bulb</span>
                 </div>
               </td>
               <td>₹29.99</td>
-              <td><input type="number" class="form-control w-50" value="1" min="1" onchange="updateCart()"></td>
+              <td><input type="number" class="form-control" value="1" min="1" onchange="updateCart()"></td>
               <td class="item-total">₹29.99</td>
-              <td><button class="btn btn-sm btn-danger" onclick="removeItem(this)">Remove</button></td>
+              <td><button class="btn btn-sm btn-danger w-100" onclick="removeItem(this)">Remove</button></td>
             </tr>
           </tbody>
         </table>
@@ -168,7 +192,7 @@
 <p>Phone: +91 98765 43210</p>
 </div>
 </div>
-<div class="footer-bottom">
+<div class="footer-bottom text-center mt-3">
 <p>&copy; 2025 SmartHome Tech. All Rights Reserved.</p>
 </div>
 </div>
@@ -204,7 +228,7 @@ function removeItem(btn) {
   updateCart();
 }
 
-// Event delegation for quantity changes
+// Event delegation
 document.getElementById('cart-items').addEventListener('change', function(e){
   if(e.target.matches('input[type="number"]')) updateCart();
 });
@@ -212,7 +236,6 @@ document.getElementById('cart-items').addEventListener('click', function(e){
   if(e.target.matches('button.btn-danger')) removeItem(e.target);
 });
 
-// Initialize cart
 window.addEventListener('DOMContentLoaded', updateCart);
 </script>
 </body>
